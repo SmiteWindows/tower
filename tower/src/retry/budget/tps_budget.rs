@@ -112,28 +112,28 @@ impl TpsBudget {
     }
 
     fn expire(&self) {
-        let mut gen = self.generation.lock().expect("generation lock");
+        let mut r#gen = self.generation.lock().expect("generation lock");
 
         let now = Instant::now();
-        let diff = now.saturating_duration_since(gen.time);
+        let diff = now.saturating_duration_since(r#gen.time);
         if diff < self.window {
             // not expired yet
             return;
         }
 
         let to_commit = self.writer.swap(0, Ordering::SeqCst);
-        self.slots[gen.index].store(to_commit, Ordering::SeqCst);
+        self.slots[r#gen.index].store(to_commit, Ordering::SeqCst);
 
         let mut diff = diff;
-        let mut idx = (gen.index + 1) % self.slots.len();
+        let mut idx = (r#gen.index + 1) % self.slots.len();
         while diff > self.window {
             self.slots[idx].store(0, Ordering::SeqCst);
             diff -= self.window;
             idx = (idx + 1) % self.slots.len();
         }
 
-        gen.index = idx;
-        gen.time = now;
+        r#gen.index = idx;
+        r#gen.time = now;
     }
 
     fn sum(&self) -> isize {
