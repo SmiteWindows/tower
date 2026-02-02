@@ -43,7 +43,7 @@ jobs:
       - name: Select minimal versions
         run: |
           cargo update -Z minimal-versions
-          cargo update -p lazy_static --precise 1.5.0
+          # cargo update -p lazy_static --precise 1.5.0
       - name: Check
         run: |
           rustup default ${{ env.MSRV }}
@@ -94,7 +94,7 @@ jobs:
       - name: Select minimal versions
         run: |
           cargo update -Z minimal-versions
-          cargo update -p lazy_static --precise 1.5.0
+          # cargo update -p lazy_static --precise 1.5.0
       - name: test
         run: |
           rustup default ${{ env.MSRV }}
@@ -107,7 +107,9 @@ jobs:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
         with:
-          components: rustfmt
+          components: rustfmt clippy
+      - name: clippy
+        run: cargo clippy --workspace --all-features --locked -- -D warnings
       - name: rustfmt
         run: cargo fmt --all -- --check
 

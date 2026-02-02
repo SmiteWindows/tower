@@ -2,8 +2,8 @@
 name = "examples"
 version = "0.0.0"
 publish = false
-edition = "2018"
-
+edition = "2024"
+rust-version="1.93"
 # If you copy one of the examples into a new project, you should be using
 # [dependencies] instead.
 [dev-dependencies]

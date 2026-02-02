@@ -17,8 +17,8 @@ description = """
 Trait representing an asynchronous, request / response based, client or server.
 """
 categories = ["asynchronous", "network-programming"]
-edition = "2018"
-
+edition = "2024"
+rust-version="1.93"
 [dependencies]
 
 [dev-dependencies]

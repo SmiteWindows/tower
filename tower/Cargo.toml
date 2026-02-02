@@ -16,8 +16,8 @@ clients and servers.
 """
 categories = ["asynchronous", "network-programming"]
 keywords = ["io", "async", "non-blocking", "futures", "service"]
-edition = "2018"
-rust-version = "1.64.0"
+edition = "2024"
+rust-version = "1.93.0"
 
 [features]
 full = [
