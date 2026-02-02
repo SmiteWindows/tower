@@ -98,7 +98,7 @@ where
                     self.state = State::Connecting(fut);
                     continue;
                 }
-                State::Connecting(ref mut f) => {
+                State::Connecting(f) => {
                     trace!("poll_ready; connecting");
                     match Pin::new(f).poll(cx) {
                         Poll::Ready(Ok(service)) => {
@@ -116,7 +116,7 @@ where
                         }
                     }
                 }
-                State::Connected(ref mut inner) => {
+                State::Connected(inner) => {
                     trace!("poll_ready; connected");
                     match inner.poll_ready(cx) {
                         Poll::Ready(Ok(())) => {

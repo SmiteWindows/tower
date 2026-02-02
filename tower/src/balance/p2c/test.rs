@@ -105,7 +105,7 @@ async fn two_endpoints_with_equal_load() {
         );
         let mut fut = task::spawn(svc.call(()));
 
-        for (ref mut h, c) in &mut [(&mut handle_a, "a"), (&mut handle_b, "b")] {
+        for (h, c) in &mut [(&mut handle_a, "a"), (&mut handle_b, "b")] {
             if let Poll::Ready(Some((_, tx))) = h.as_mut().poll_request() {
                 tracing::info!("using {}", c);
                 tx.send_response(c);
