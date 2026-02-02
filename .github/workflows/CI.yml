@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - master
-  pull_request: {}
+  pull_request: 
+    branches:
+      - master
+  workflow_dispatch:
 
 env:
   MSRV: 1.64.0
